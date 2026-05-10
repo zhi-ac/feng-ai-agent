@@ -3,6 +3,7 @@ TestApiKey.java
 HELP.md
 mvnw
 mvnw.cmd
+tmp/
 maven-wrapper.properties
 target/
 .mvn/wrapper/maven-wrapper.jar
