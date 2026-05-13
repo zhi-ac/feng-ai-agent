@@ -1,4 +1,4 @@
-package com.feng.fengaiagent.invoke;// 建议dashscope SDK的版本 >= 2.12.0
+package com.feng.fengaiagent.demo.invoke;// 建议dashscope SDK的版本 >= 2.12.0
 
 import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.generation.GenerationParam;

@@ -1,13 +1,12 @@
 package com.feng.fengaiagent.app;
 
 import com.feng.fengaiagent.advisor.MyLoggerAdvisor;
-import com.feng.fengaiagent.advisor.ReReadingAdvisor;
-import com.feng.fengaiagent.chatmemory.FileBasedChatMemory;
+import com.feng.fengaiagent.rag.LoveAppRagCustomAdvisorFactory;
+import com.feng.fengaiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
@@ -105,6 +104,9 @@ public class LoveApp {
 
     @Resource
     private VectorStore pgVectorVectorStore;
+
+    @Resource
+    private QueryRewriter queryRewriter;
     /**
      * 和 RAG 知识库进行对话
      * @param message
@@ -112,6 +114,7 @@ public class LoveApp {
      * @return
      */
     public String doChatWithRag(String message, String chatId) {
+//        message = queryRewriter.doQueryRewrite(message);
         ChatResponse chatResponse = chatClient
                 .prompt()
                 .user(message)
@@ -124,7 +127,12 @@ public class LoveApp {
                 // 应用 RAG 检索增强服务（基于云知识库服务）
 //                .advisors(loveAppRagCloudAdvisor)
                 // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
-                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
+//                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
+                .advisors(
+                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+                                loveAppVectorStore, "单身"
+                        )
+        )
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();
