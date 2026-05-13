@@ -1,4 +1,4 @@
-package com.feng.fengaiagent.invoke;
+package com.feng.fengaiagent.demo.invoke;
 
 import dev.langchain4j.community.model.dashscope.QwenChatModel;
 import dev.langchain4j.model.chat.ChatLanguageModel;
