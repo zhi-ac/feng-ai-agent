@@ -1,16 +1,9 @@
-application-local.yml
-mcp-servers.json
-src/main/java/com/feng/fengaiagent/demo/invoke/TestApiKey.java
 HELP.md
-mvnw
-mvnw.cmd
-tmp/
-maven-wrapper.properties
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-.gitattributes
+application-local.yml
 ### STS ###
 .apt_generated
 .classpath
